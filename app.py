@@ -16,12 +16,12 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 @st.cache_resource
 def load_model():
     """
-    Carga el modelo ResNet18 y aplica el state_dict guardado en joblib.
+    Carga el modelo ResNet18 y aplica el state_dict guardado en CPU (.joblib).
     """
     num_classes = len(CLASS_NAMES)
 
-    # Misma arquitectura usada en entrenamiento
-    model = models.resnet18(weights=None)  # weights=None porque cargamos nuestros propios pesos
+    # Misma arquitectura que usaste al entrenar
+    model = models.resnet18(weights=None)
     in_features = model.fc.in_features
     model.fc = nn.Sequential(
         nn.Linear(in_features, 256),
@@ -30,8 +30,10 @@ def load_model():
         nn.Linear(256, num_classes),
     )
 
-    state_dict = joblib.load("modelo_fibrosis_state_dict.joblib")
+    # Cargar state_dict ya en CPU
+    state_dict = joblib.load("modelo_fibrosis_state_dict_cpu.joblib")
     model.load_state_dict(state_dict, strict=True)
+
     model.to(DEVICE)
     model.eval()
 
