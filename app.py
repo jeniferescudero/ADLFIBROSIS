@@ -87,10 +87,7 @@ def main():
     st.write(
         """
         Esta aplicación permite cargar una **imagen ecográfica hepática** y obtener una
-        predicción del estadio de fibrosis (F0–F4) usando un modelo de **red neuronal convolucional (CNN)**.
-
-        > ⚠ **Nota importante:** Esta herramienta es solo con fines académicos y de demostración.
-        > No debe utilizarse para decisiones diagnósticas reales.
+        predicción del estadio de fibrosis (F0–F4) usando un modelo de **red neuronal convolucional (CNN) ResNet18**.
         """
     )
 
